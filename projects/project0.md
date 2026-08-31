@@ -177,7 +177,7 @@ To establish a connection, follow the **...or push an existing repository from t
 
 ```bash
 # define a new remote named "origin" that points to GitHub
-$ git remote add origin git@github.com:benrbray/cis3308-fall2026.git
+$ git remote add origin <YOUR_GIT_SSH_URL_HERE>
 # ensures that the current branch is named "master", for consistency
 $ git branch -M master
 # synchronize your local copy of "master" with GitHub's copy of "master"
