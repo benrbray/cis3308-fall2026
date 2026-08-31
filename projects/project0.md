@@ -180,10 +180,66 @@ To establish a connection, follow the **...or push an existing repository from t
 $ git remote add origin <YOUR_GIT_SSH_URL_HERE>
 # ensures that the current branch is named "master", for consistency
 $ git branch -M master
-# synchronize your local copy of "master" with GitHub's copy of "master"
+# establishes "origin/master" as the "upstream" of the local "master" branch, and synchronizes your work
 $ git push -u origin master
 ```
 
 In `git` terminology, a `remote` is a separate copy of your repository that exists in another location (it could be a friend's computer, a company's server, or even just another folder on your local machine).
 
 If you refresh the page, you should see your `README.md` file publicly on GitHub!
+
+## Part 6:  Create an HTML Page
+
+Create a new file named `index.html` in your project repository.  Add the following contents:
+
+```html
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS 3308</title>
+  </head>
+  <body>
+    <h1>Welcome to CIS 3308!</h1>
+
+    <h2>Who is your favorite fictional character?</h2>
+
+    TODO
+
+    <h2>What does your fictional character look like?  (Include an image!)</h2>
+
+    TODO
+
+  </body>
+</html>
+```
+
+## Part 7:  Open the HTML Page in your Browser
+
+In your file explorer, double-click on the HTML file.  You should see the following simple web page:
+
+![alt text](include/image-5.png)
+
+## Part 8:  Complete the Web Page
+
+Fill in the TODOs in the `index.html` file.  When you're done, `add`, `commit`, and `push` your changes using `git`.
+
+```
+$ git add index.html
+$ git commit -m "created my first web page"
+$ git push
+```
+
+## Part 7:  Set Up GitHub Pages
+
+Visit the `Settings` page in the top navigation bar of your GitHub repository.
+
+![alt text](include/image-3.png)
+
+Navigate to the `Pages` section of the sidebar on the left, and choose `Source: Deploy from Branch` with `Branch` set to `master` / `root`.
+
+![alt text](include/image-4.png)
+
+Pressing `Save` will publish your GitHub pages site!
