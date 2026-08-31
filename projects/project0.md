@@ -242,4 +242,9 @@ Navigate to the `Pages` section of the sidebar on the left, and choose `Source: 
 
 ![alt text](include/image-4.png)
 
-Pressing `Save` will publish your GitHub pages site!
+Pressing `Save` will publish your GitHub pages site!  It will be available at a URL like the following:
+
+```
+https://benrbray.github.io/cis3308-fall2026/
+https://GITHUB_USERNAME.github.io/REPOSITORY_NAME
+```
