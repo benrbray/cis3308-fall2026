@@ -1,0 +1,37 @@
+html {
+  background-color: white;
+}
+
+body {
+  font: 1.2em / 1.5 system-ui;
+}
+
+/*
+BOX STYLES
+
+1. Give the <body> element a padding of 20px on all sides and a width of 500px.
+
+2. Give the <body> element a background color of #efefef (a light-gray <hex-color> value).
+
+3. Center the <body> element inside the viewport by setting top- and bottom-margins of 0, and left- and right-margins of auto.
+
+4. Give the <ul> used for the contact details a background color of white, and a 5px solid purple border on all sides. Give the <ul> padding of 30px on all sides to push the content away from the border.
+
+5. Give the <ul> a border radius of 20px.
+
+TEXT STYLES
+
+6. Make the level one heading dark gray, using the CSS color keyword darkslategray, and give the heading a 10px dotted bottom border, which uses the CSS color keyword purple.
+
+7. Make the level two heading italic.
+
+8. Give the level one heading a font size of 2rem and the level two heading a font size of 1.5rem.
+
+9. Select the <div> using a class selector, and give it a color of darkslategray and a bold font weight.
+
+10. Make the links green.
+
+11. Make the links darkgreen while hovered over with the mouse pointer or focused via the keyboard (you'll need to use a couple of pseudo-classes for this).
+
+12. Make the links lose their underline while hovered or focused.
+*/
