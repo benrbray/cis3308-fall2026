@@ -1,14 +1,72 @@
 /* P1: Make the page heading red. */
+h1 {
+   color: red;
+}
 
 /* P2: Make the paragraphs and list items green. */
+p, li {
+   color: green;
+}
 
 /* P3: Make the second bullet list item orange and bold, by adding a CSS class. */
+.special {
+   color: orange;
+   font-weight: bold;
+}
+
+.important-info {
+   background-color: rgb(230, 226, 173);
+}
+
 
 /* P4 (Descendant Combinator): Whenever an <em> element
    appears inside of a list item, make it purple. */
 
+li em {
+   color: purple
+}
+
 /* P5 (Next-Sibling Combinator): Increase the font size of
    the first paragraph after each h1 element. */
 
+h1 + p {
+   font-size: 2em;
+}
+
 /* P6 (Style Based on State):  Give <a> tags a diffent style based on their state.
    :link for unvisited, :visited for visited, and :hover for mouse hover. */
+
+a {
+   color: red;
+}
+
+a:hover {
+   border: 2px solid black;
+}
+
+a:visited {
+   color: lightgray;
+}
+
+#special-box {
+   box-sizing: border-box;
+
+   width: 400px;
+   height: 200px;
+   border: 10px solid black;
+   padding: 20px;
+   margin: 10px;
+   background-color: gray;
+}
+
+h1 {
+   border: 2px solid blue;
+}
+
+em {
+   position: absolute;
+   /* bottom: 10px; */
+   /* top: -5px; */
+   left: 20px;
+   top: 20pt;
+}
