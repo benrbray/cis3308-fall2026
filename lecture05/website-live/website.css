@@ -1,0 +1,74 @@
+.header {
+  background-color: lightblue;
+  padding: 20px;
+}
+
+.footer {
+  background-color: #eee;
+  padding: 20px;
+}
+
+.column {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.header .column {
+  color: navy;
+  display: flex;
+  gap: 10px;
+}
+
+.header-title {
+    font-size: 36px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.header-nav {
+  flex: 1;
+  
+  display: flex;
+  gap: 10px;
+}
+
+.header-nav a {
+  background-color: rgb(105, 180, 205);
+  padding: 10px;
+  font-size: 18px;
+
+  color: navy;
+  text-decoration: none;
+  flex: 1;
+  text-align: center;
+}
+
+.header-nav a:hover {
+  background-color: rgb(105, 205, 168);
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book-list .book {
+  border: 1px solid black;
+  padding: 10px;
+  flex: 1;
+}
+
+.book-list .book a {
+  color: green;
+}

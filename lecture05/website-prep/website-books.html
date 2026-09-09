@@ -1,0 +1,151 @@
+<script>
+        let data = [
+  {
+    "title": "Moby Dick; Or, The Whale",
+    "author": "Herman Melville",
+    "link": "https://www.gutenberg.org/ebooks/2701"
+  },
+  {
+    "title": "The Secret of Chimneys",
+    "author": "Agatha Christie",
+    "link": "https://www.gutenberg.org/ebooks/65238"
+  },
+  {
+    "title": "The Man Who Was Thursday: A Nightmare",
+    "author": "G. K. Chesterton",
+    "link": "https://www.gutenberg.org/ebooks/1695"
+  },
+  {
+    "title": "The Extraordinary Adventures of Arsène Lupin, Gentleman-Burglar",
+    "author": "Maurice Leblanc",
+    "link": "https://www.gutenberg.org/ebooks/6133"
+  },
+  {
+    "title": "The Book of the Thousand Nights and a Night — Volume 01 (of 10)",
+    "link": "https://www.gutenberg.org/ebooks/51252"
+  },
+  {
+    "title": "Four Arthurian Romances",
+    "author": "active 12th century de Troyes Chrétien",
+    "link": "https://www.gutenberg.org/ebooks/831"
+  },
+  {
+    "title": "The Count of Monte Cristo",
+    "author": "Alexandre Dumas and Auguste Maquet",
+    "link": "https://www.gutenberg.org/ebooks/1184"
+  },
+  {
+    "title": "King Arthur and the Knights of the Round Table",
+    "author": "Sir Thomas Malory",
+    "link": "https://www.gutenberg.org/ebooks/36462"
+  },
+  {
+    "title": "The Misplaced Battleship",
+    "author": "Harry Harrison",
+    "link": "https://www.gutenberg.org/ebooks/22541"
+  },
+  {
+    "title": "The Blue Lagoon: A Romance",
+    "author": "H. De Vere Stacpoole",
+    "link": "https://www.gutenberg.org/ebooks/393"
+  },
+  {
+    "title": "The Countess of Pembroke's Arcadia",
+    "author": "Philip Sidney",
+    "link": "https://www.gutenberg.org/ebooks/70854"
+  },
+  {
+    "title": "Catriona",
+    "author": "Robert Louis Stevenson",
+    "link": "https://www.gutenberg.org/ebooks/589"
+  },
+  {
+    "title": "The Secret Adversary",
+    "author": "Agatha Christie",
+    "link": "https://www.gutenberg.org/ebooks/1155"
+  },
+  {
+    "title": "The Man in the Brown Suit",
+    "author": "Agatha Christie",
+    "link": "https://www.gutenberg.org/ebooks/61168"
+  },
+  {
+    "title": "Mr. Standfast",
+    "author": "John Buchan",
+    "link": "https://www.gutenberg.org/ebooks/560"
+  },
+  {
+    "title": "The Thirty-Nine Steps",
+    "author": "John Buchan",
+    "link": "https://www.gutenberg.org/ebooks/558"
+  },
+  {
+    "title": "The Riddle of the Sands",
+    "author": "Erskine Childers",
+    "link": "https://www.gutenberg.org/ebooks/2360"
+  },
+  {
+    "title": "Twenty years after",
+    "author": "Alexandre Dumas and Auguste Maquet",
+    "link": "https://www.gutenberg.org/ebooks/1259"
+  },
+  {
+    "title": "Peter the Brazen: A Mystery Story of Modern China",
+    "author": "George F. Worts",
+    "link": "https://www.gutenberg.org/ebooks/28780"
+  },
+  {
+    "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall",
+    "author": "Edward Stratemeyer",
+    "link": "https://www.gutenberg.org/ebooks/22163"
+  },
+  {
+    "title": "The Air Pirate",
+    "author": "Guy Thorne",
+    "link": "https://www.gutenberg.org/ebooks/40361"
+  },
+  {
+    "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House",
+    "author": "Hildegard G. Frey",
+    "link": "https://www.gutenberg.org/ebooks/38983"
+  },
+  {
+    "title": "Love-at-arms :  being a narrative excerpted from the chronicles of Urbino, during the dominion of the high and mighty Messer Guidobaldo da Montefeltro",
+    "author": "Rafael Sabatini",
+    "link": "https://www.gutenberg.org/ebooks/3530"
+  },
+  {
+    "title": "Aus dem Leben eines Taugenichts: Novelle (German)",
+    "author": "Freiherr von Joseph Eichendorff",
+    "link": "https://www.gutenberg.org/ebooks/35312"
+  },
+  {
+    "title": "The Pirate",
+    "author": "Walter Scott",
+    "link": "https://www.gutenberg.org/ebooks/42389"
+  }
+]
+        window.onload = function() {
+          let elt = document.getElementById("dynamic")
+
+          data.forEach(book => {
+            let container = document.createElement("div");
+            container.className = "book";
+
+            let titleElt = document.createElement("a");
+            titleElt.classList.add("a", "title");
+            titleElt.textContent = book["title"]
+            titleElt.href = book["link"];
+            let authorElt = document.createElement("div");
+            authorElt.textContent = book["author"]
+            authorElt.className = "author"
+            
+            container.appendChild(titleElt)
+            container.appendChild(authorElt);
+            elt.appendChild(container)
+          })
+        }
+        </script>
+
+       <div id="dynamic">
+       </div>
