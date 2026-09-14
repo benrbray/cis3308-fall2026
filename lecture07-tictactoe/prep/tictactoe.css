@@ -1,0 +1,56 @@
+body {
+  background-color: rgb(26, 98, 134);
+  color: white;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game .board {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+  /* justify-items: stretch;
+  align-items: stretch; */
+  background-color: black;
+}
+
+#game .controls {
+  flex: 0;
+}
+
+#game .square {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+
+  font-size: 36px;
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+}
+
+#game .square.playerX {
+  background-color: rgb(228, 255, 228);
+  color: green;
+}
+
+#game .square.playerO {
+  background-color: rgb(255, 213, 213);
+  color: red;
+}
+
+#game .square.playerX::before {
+  content: "X";
+}
+#game .square.playerO::before {
+  content: "O";
+}
+
+#game .square:not(.playerX):not(.playerO):hover {
+  background-color: gray;
+}
