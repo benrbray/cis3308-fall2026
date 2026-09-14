@@ -2,3 +2,34 @@ body {
   background-color: rgb(26, 98, 134);
   color: white;
 }
+
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game .board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+
+  gap: 10px;
+  background-color: black;
+}
+
+#game .square {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  color: black;
+
+  font-size: 36px;
+  font-family: monospace;
+
+  /* center the symbol in each square */
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+}
