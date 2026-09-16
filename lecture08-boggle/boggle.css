@@ -6,7 +6,7 @@
 #game .board {
   display: grid;
   grid-template-columns: repeat(5, auto);
-  /* user-select: none; */
+  user-select: none;
 }
 
 #game .square {
@@ -16,4 +16,9 @@
   align-items: center;
   justify-content: center;
   border: 1px solid gray;
+}
+
+#game .square.selected {
+  background-color: lightblue;
+  font-weight: bold;
 }
