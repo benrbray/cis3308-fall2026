@@ -1,0 +1,19 @@
+#game {
+  display: flex;
+  justify-content: center;
+}
+
+#game .board {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  /* user-select: none; */
+}
+
+#game .square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gray;
+}
