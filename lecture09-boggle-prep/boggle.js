@@ -4,7 +4,7 @@ import { randomBoard5x5 } from "./random.js";
 //////////////////////////////////////////////////
 
 const isDictionaryWord = (word) => {
-  return dictionary.indexOf(word) > -1;
+  return dictionary.indexOf(word.toUpperCase()) > -1;
 }
 
 ///////////////////////////////////////////////////
@@ -48,10 +48,9 @@ class GameState {
     // keep a list of the selected squares
     this.selectedSquares = [];
     this.selectedLetters = [];
+
+    // score
     this.score = 0;
-    
-    // keep a lits of the user's words so far
-    this.foundWords = [];
 
     // initialize
     this.reset();
@@ -60,26 +59,44 @@ class GameState {
   reset() {
     // generate a random board
     this.board = randomBoard5x5();
-    this.score = 0;
     
     this.resetSelection();
   }
+
+  /* ---- scoring --------------------------------------- */
+
+  resetScore() {
+    this.score = 0;
+  }
+
+  scoreWord(
+    word
+  ) {
+    let lengthScores = [0, 0, 1, 1, 2, 3, 5, 11];
+    // score
+    if(isDictionaryWord(word)) {
+      let wordScore = word.length <= 8 ? lengthScores[word.length-1] : 11;
+      this.score += wordScore;
+      log("SCORE! +" + wordScore);
+      return { type: "valid", wordScore : wordScore };
+    } else {
+      log("Invalid Word!");
+      return { type: "invalid" };
+    }
+  }
+
+  /* ---- selection ------------------------------------- */
 
   resetSelection() {
     this.selectedSquares = [];
     this.selectedLetters = [];
   }
 
-  getSelectedWord() {
-    return this.selectedLetters.join("");
-  }
-
   /** Begin selecting a new word from the grid. */
   beginSelection(row, col) {
     log("BEGIN", row, col);
-    
     this.resetSelection();
-    this.addToSelection(row, col);
+    this.addToSelection(row, col)
   }
 
   /** Add a new square to the user's current selection. */
@@ -89,33 +106,21 @@ class GameState {
       row: row,
       col: col,
     })
-    this.selectedLetters.push(
-      this.board[row][col]
-    )
+
+    this.selectedLetters.push(this.board[row][col]);
   }
 
   /** End the selection, and submit the word for scoring. */
   closeSelection() {
-    // get the currently selected word
-    let userWord = this.getSelectedWord();
-    log("CLOSE " + userWord);
-    
+    // collect the user's word
+    let userWord = this.selectedLetters.join("");
+    log("CLOSE", userWord);
+
+    // close the selection
+    this.resetSelection();
+
     // score the user's word
     this.scoreWord(userWord);
-    
-    this.resetSelection();
-  }
-
-  scoreWord(word) {
-    let alreadyFound = this.foundWords.indexOf(word) > -1;
-    if(isDictionaryWord(word) && !alreadyFound) {
-      log("VALID!");
-      this.score += word.length;
-      this.foundWords.push(word);
-    } else {
-      // TODO:  handle invalid word
-      log("INVALID!")
-    }
   }
 }
 
@@ -133,8 +138,6 @@ class View {
     gameElt,
     /** @type GameState */ gameState,
   ) {
-    // keep a reference to the gameState,
-    // so the view can stay in sync
     this.gameState = gameState;
 
     // create score element
@@ -142,7 +145,7 @@ class View {
     this.scoreElt.className = "score";
     gameElt.appendChild(this.scoreElt);
 
-    // create message element
+    // create selection element
     this.messageElt = document.createElement("div");
     this.messageElt.className = "message";
     gameElt.appendChild(this.messageElt);
@@ -175,7 +178,6 @@ class View {
     // click listener
     boardElt.onmousedown = handleBoardClick;
 
-    // update the view
     this.updateView();
   }
 
@@ -183,6 +185,11 @@ class View {
    * Synchronize the web page to reflect the current `GameState`.
    */
   updateView() {
+    this.updateSelection();
+    this.updateScore();
+  }
+
+  updateSelection() {
     // unselect all squares first
     for(let row = 0; row < gameState.boardSize; row++) {
       for(let col = 0; col < gameState.boardSize; col++) {
@@ -196,25 +203,53 @@ class View {
       let squareElt = this.squares[selectedSquare.row][selectedSquare.col]
       squareElt.classList.add("selected");
     }
-
-    // update the score and message
-    this.updateScore();
-    this.updateMessage(this.gameState.getSelectedWord());
   }
 
   updateScore() {
-    let currentScore = this.gameState.score;
-    this.scoreElt.textContent = "Score: " + currentScore;
+    this.scoreElt.textContent = "Score: " + this.gameState.score;
   }
 
   updateMessage(message) {
     this.messageElt.textContent = message;
   }
+
+  animateSelection() {
+    let keyframes = [
+      { backgroundColor: "green" },
+      { backgroundColor: "white" },
+    ]
+
+    const timing = {
+      duration: 200,
+      iterations: 1,
+    };
+
+    for(let coords of this.gameState.selectedSquares) {
+      let element = this.squares[coords.row][coords.col];
+      element.animate(keyframes, timing);
+    }
+  }
+
+  animateScore() {
+    let keyframes = [
+      { transform: "scale(1.0)" },
+      { transform: "scale(1.2)" },
+      { transform: "scale(1.0)" },
+    ]
+
+    const timing = {
+      duration: 200,
+      iterations: 1,
+      easing: "ease-out"
+    };
+
+    this.scoreElt.animate(keyframes, timing);
+  }
 }
 
 const handleBoardClick = (event) => {
   console.log(event);
-  // event.currentTarget is the element this event is attached to
+  // eventcurrentTarget is the element this event is attached to
   // event.target is the element we actually clicked (possibly a child of currentTarget)
   let element = event.target;
 
@@ -232,6 +267,8 @@ const handleBoardClick = (event) => {
 
   // attach a new listener for "mouseover" events
   boardElt.addEventListener("mouseover", handleMouseOver);
+  
+  // attach new listener for "mouseup" events
   boardElt.addEventListener("mouseup", handleMouseUp);
 
   // when we release the mouse or leave the game area,
@@ -260,10 +297,13 @@ const handleMouseOver = (event) => {
 
   // add this square to the user's selection
   gameState.addToSelection(row, col);
+  view.updateMessage(gameState.selectedLetters.join(""));
   view.updateView();
 }
 
 const handleMouseUp = (event) => {
+  view.animateSelection();
+  view.animateScore();
   gameState.closeSelection();
   view.updateView();
 }
