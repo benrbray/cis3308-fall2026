@@ -13,8 +13,21 @@ export const generateWebsite = (
   outputDir: string,
 ) => {
   // 1. get paths to all markdown files in the folder
+  let markdownPaths: string[] = fs.globSync("markdown/*.md");
+  console.log(markdownPaths);
   // 2. ensure that the output directory exists
+  fs.mkdirSync(outputDir, { recursive: true });
   // 3. convert every markdown file into html and save it
+  for(let markdownPath of markdownPaths) {
+    // 3a. read the markdown file as a string
+    let markdown = fs.readFileSync(markdownPath, "utf8");
+    // 3b. convert the markdown string to html
+    let html = markdownToHtml(markdown);
+    // 3c. get the correct output path for the html file
+    let htmlPath = getOutputPath(inputDir, outputDir, markdownPath);
+    // 3d. save the html file
+    fs.writeFileSync(htmlPath, html);
+  }
 }
 
 // transforms ./markdown/giraffe.md
