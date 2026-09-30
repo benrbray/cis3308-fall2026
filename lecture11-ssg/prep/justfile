@@ -5,5 +5,5 @@ clean:
 compile: clean
   npx tsc
 
-build-website *args: compile
-  node output/src/main.js {{args}}
+build-website: compile
+  node output/src/main.js --inputDir markdown --outputDir website
