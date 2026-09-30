@@ -1,0 +1,9 @@
+clean:
+  rm -rf output
+  rm -rf website
+
+compile: clean
+  npx tsc
+
+build-website: compile
+  node output/src/main.js --inputDir markdown --outputDir website
