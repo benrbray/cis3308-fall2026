@@ -1,0 +1,9 @@
+clean:
+  rm -rf output
+  rm -rf website
+
+compile: clean
+  npx tsc
+
+build-website *args: compile
+  node output/src/main.js {{args}}
