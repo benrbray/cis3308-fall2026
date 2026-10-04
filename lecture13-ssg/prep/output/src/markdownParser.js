@@ -1,15 +1,15 @@
 export const markdownToHtml = (markdown) => {
-    // create html string for this post
-    let html = "";
-    for (let line of markdown.split(/\r?\n/)) {
-        // parse this line of the markdown file
+    // split the markdown string into lines
+    let markdownLines = markdown.split(/\r?\n/);
+    let bodyHtml = "";
+    // parse each line individually
+    for (let line of markdownLines) {
         let parseResult = parseLine(line);
-        if (parseResult.kind == "heading") {
-            let tag = `h${parseResult.level}`;
-            html += `<${tag}>${parseResult.title}</${tag}>`;
+        if (parseResult.kind === "heading") {
+            bodyHtml += `<h1>${parseResult.title}</h1>`;
         }
-        else if (parseResult.kind == "paragraph") {
-            html += `<p>${parseResult.content}</p>`;
+        else {
+            bodyHtml += `<p>${parseResult.content}</p>`;
         }
     }
     return `
@@ -20,26 +20,32 @@ export const markdownToHtml = (markdown) => {
     <title>Website</title>
   </head>
   <body>
-    ${html}
+    ${bodyHtml}
   </body>
   </html>
   `;
 };
+//////
 const parseLine = (line) => {
-    // check if it's a heading
+    // check if this is a heading
+    //    ^ matches the start of a new line
+    //    (#+) matches one or more # characters
+    //    (.*) matches zero or more characters of any kind
     let headingMatch = line.match(/^(#+)(.*)/);
-    if (headingMatch) {
-        let headingNum = Math.min(headingMatch.length, 5);
+    if (headingMatch !== null) {
+        let level = headingMatch[1].length;
+        let title = headingMatch[2];
         return {
             kind: "heading",
-            level: Math.min(headingMatch.length, 5),
-            title: headingMatch[2],
+            level: level,
+            title: title
         };
     }
-    // otherwise assume it's a paragraph
+    // if we didn't find a heading,
+    // then treat the line as a paragraph
     return {
         kind: "paragraph",
-        content: line,
+        content: line
     };
 };
 //# sourceMappingURL=markdownParser.js.map

@@ -5,7 +5,7 @@
 To run this code, you must have the following installed:
 
 * NodeJS and NPM (I recommend installing with [NVM](https://www.nvmnode.com/))
-* [Just](https://github.com/casey/just)
+* [Just](https://github.com/casey/just) `npm install -g rust-just`
 
 ## First-Time Setup
 

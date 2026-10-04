@@ -1,16 +1,16 @@
 export const markdownToHtml = (markdown: string): string => {
-  // create html string for this post
-  let html: string = "";
+  // split the markdown string into lines
+  let markdownLines = markdown.split(/\r?\n/);
 
-  for(let line of markdown.split(/\r?\n/)) {
-    // parse this line of the markdown file
+  let bodyHtml: string = "";
+
+  // parse each line individually
+  for(let line of markdownLines) {
     let parseResult = parseLine(line);
-
-    if(parseResult.kind == "heading") {
-      let tag = `h${parseResult.level}`;
-      html += `<${tag}>${parseResult.title}</${tag}>`;
-    } else if(parseResult.kind == "paragraph") {
-      html += `<p>${parseResult.content}</p>`;
+    if(parseResult.kind === "heading") {
+      bodyHtml += `<h1>${parseResult.title}</h1>`;
+    } else {
+      bodyHtml += `<p>${parseResult.content}</p>`;
     }
   }
 
@@ -22,16 +22,18 @@ export const markdownToHtml = (markdown: string): string => {
     <title>Website</title>
   </head>
   <body>
-    ${html}
+    ${bodyHtml}
   </body>
   </html>
   `
 };
 
+//////
+
 interface Heading {
   kind: "heading",
-  level: number,
-  title: string,
+  level: number, // 1-5
+  title: string, // text
 }
 
 interface Paragraph {
@@ -41,22 +43,28 @@ interface Paragraph {
 
 type ParseResult = Heading | Paragraph;
 
+//////
+
 const parseLine = (line: string): ParseResult => {
-  // check if it's a heading
+  // check if this is a heading
+  //    ^ matches the start of a new line
+  //    (#+) matches one or more # characters
+  //    (.*) matches zero or more characters of any kind
   let headingMatch = line.match(/^(#+)(.*)/);
-  
-  if(headingMatch) {
-    let headingNum = Math.min(headingMatch.length, 5);
+  if(headingMatch !== null) {
+    let level: number = headingMatch[1]!.length;
+    let title: string = headingMatch[2]!;
     return {
       kind: "heading",
-      level: Math.min(headingMatch.length, 5),
-      title: headingMatch[2]!,
-    };
+      level: level,
+      title: title
+    }
   }
 
-  // otherwise assume it's a paragraph
+  // if we didn't find a heading,
+  // then treat the line as a paragraph
   return {
     kind: "paragraph",
-    content: line,
+    content: line
   }
 }
