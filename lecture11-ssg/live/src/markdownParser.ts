@@ -2,9 +2,16 @@ export const markdownToHtml = (markdown: string): string => {
   // split the markdown string into lines
   let markdownLines = markdown.split(/\r?\n/);
 
+  let bodyHtml: string = "";
+
   // parse each line individually
   for(let line of markdownLines) {
     let parseResult = parseLine(line);
+    if(parseResult.kind === "heading") {
+      bodyHtml += `<h1>${parseResult.title}</h1>`;
+    } else {
+      bodyHtml += `<p>${parseResult.content}</p>`;
+    }
   }
 
   return `
@@ -15,7 +22,7 @@ export const markdownToHtml = (markdown: string): string => {
     <title>Website</title>
   </head>
   <body>
-    ${markdown}
+    ${bodyHtml}
   </body>
   </html>
   `
@@ -24,24 +31,17 @@ export const markdownToHtml = (markdown: string): string => {
 //////
 
 interface Heading {
+  kind: "heading",
   level: number, // 1-5
   title: string, // text
 }
 
 interface Paragraph {
+  kind: "paragraph",
   content: string
 }
 
 type ParseResult = Heading | Paragraph;
-
-let heading1: Heading = {
-  level: 1,
-  title: "This is the Title"
-};
-
-let parseResult: ParseResult = {
-  content: "paragraph paragraph paragraph"
-};
 
 //////
 
@@ -51,7 +51,20 @@ const parseLine = (line: string): ParseResult => {
   //    (#+) matches one or more # characters
   //    (.*) matches zero or more characters of any kind
   let headingMatch = line.match(/^(#+)(.*)/);
-  console.log(headingMatch);
+  if(headingMatch !== null) {
+    let level: number = headingMatch[1]!.length;
+    let title: string = headingMatch[2]!;
+    return {
+      kind: "heading",
+      level: level,
+      title: title
+    }
+  }
 
-  // TODO
+  // if we didn't find a heading,
+  // then treat the line as a paragraph
+  return {
+    kind: "paragraph",
+    content: line
+  }
 }

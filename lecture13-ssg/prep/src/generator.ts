@@ -2,32 +2,29 @@ import fs from "node:fs";
 import path from "node:path";
 import { markdownToHtml } from "./markdownParser.js";
 
-// HINTS:
-// - fs.globSync
-// - fs.mkdirSybc(outputDir, { recursive: true })
-// - fs.readFileSync(filePath, "utf8")
-// - fs.writeFileSync
-
 export const generateWebsite = (
   inputDir: string,
   outputDir: string,
 ) => {
-  // 1. get paths to all markdown files in the folder
-  let markdownPaths: string[] = fs.globSync(`${inputDir}/*.md`);
-  console.log(markdownPaths);
-  // 2. ensure that the output directory exists
+  // get paths to all markdown files in the folder
+  let result = fs.globSync(`./${inputDir}/**/*.md`);
+
+  // ensure that the output directory exists
   fs.mkdirSync(outputDir, { recursive: true });
-  // 3. convert every markdown file into html and save it
-  for(let markdownPath of markdownPaths) {
-    // 3a. read the markdown file as a string
+
+  // convert every markdown file into html
+  for(let markdownPath of result) {
     let markdown = fs.readFileSync(markdownPath, "utf8");
-    // 3b. convert the markdown string to html
     let html = markdownToHtml(markdown);
-    // 3c. get the correct output path for the html file
+    
+    // write the output file
     let htmlPath = getOutputPath(inputDir, outputDir, markdownPath);
-    // 3d. save the html file
     fs.writeFileSync(htmlPath, html);
+
+    console.log(`Generated ${htmlPath}`);
   }
+
+  console.log(result);
 }
 
 // transforms ./markdown/giraffe.md

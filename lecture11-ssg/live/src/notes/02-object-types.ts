@@ -26,6 +26,11 @@ let player = {
 
 printCoord(player) // ok!
 
+// TypeScript has a "structural" type system
+// Java has a "nominative" type system 
+//    "nominative" == "name"
+//    type relationships in Java are determined by class / interface names
+
 // We can use an interface to give a name to an object type:
 
 interface Point {
@@ -69,7 +74,7 @@ let astarion: Player = {
   name: "Astarion",
   inventory: ["sword", "shield"],
   x: 0,
-  y: 0,
+  y: 0
 }
 
 let beholder: Monster = {
@@ -95,7 +100,7 @@ let entityA: Entity = astarion;
 let entityB: Entity = beholder;
 
 function updatePlayer(p: Player): void { /* do something */ }
-function updateMonster(p: Monster): void { /* do something */ }
+function updateMonster(m: Monster): void { /* do something */ }
 
 let gameEntities: Entity[] = [
   astarion, beholder
@@ -103,6 +108,7 @@ let gameEntities: Entity[] = [
 
 function updateEntities(gameEntities: Entity[]) {
   for(let entity of gameEntities) {
+    // updateMonster(entity);
     //entity. // ???
     //updatePlayer(entity);   // ERROR!
     //updateMonster(entity);  // ERROR!

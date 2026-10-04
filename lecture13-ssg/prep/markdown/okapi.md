@@ -1,4 +1,4 @@
-# Okapis Are Awesome!!!!
+# Okapi
 
 ## Introduction
 
