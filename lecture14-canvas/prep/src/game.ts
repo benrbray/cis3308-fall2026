@@ -1,26 +1,42 @@
 ////////////////////////////////////////////////////////////
 
-export const update = (dt: number) => {
-  if(isKeyDown(Key.LEFT)) {
-    x -= 10;
-  }
-
-  if(isKeyDown(Key.RIGHT)) {
-    x += 10;
-  }
+interface Vector {
+  x: number,
+  y: number
 }
 
-let x = 0;
-let y = 0;
+type Player = {
+  pos: Vector,
+  vel: Vector
+}
+
+const player: Player = {
+  pos: { x : 0, y : 0 },
+  vel: { x : 0, y : 0 },
+}
+
+
+const drawPlayer = (player: Player, ctx: CanvasRenderingContext2D) => {
+  ctx.fillStyle = "red";
+  ctx.arc(player.pos.x, player.pos.y, 50, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+////////////////////////////////////////////////////////////
+
+export const update = (dt: number) => {
+  if(isKeyDown(Key.LEFT))  { player.pos.x -= 10; }
+  if(isKeyDown(Key.RIGHT)) { player.pos.x += 10; }
+  if(isKeyDown(Key.UP))    { player.pos.y -= 10; }
+  if(isKeyDown(Key.DOWN))  { player.pos.y += 10; }
+}
 
 ////////////////////////////////////////////////////////////
 
 export const draw = (ctx: CanvasRenderingContext2D) => {
   ctx.reset();
 
-  ctx.fillStyle = "red";
-  ctx.arc(x, y, 100, 0, 2 * Math.PI);
-  ctx.fill();
+  drawPlayer(player, ctx);
 }
 
 ////////////////////////////////////////////////////////////
