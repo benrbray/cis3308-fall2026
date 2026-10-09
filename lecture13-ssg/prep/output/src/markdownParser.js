@@ -1,15 +1,18 @@
+import { makeHeader, makeHeading, makeParagraph } from "./components.js";
 export const markdownToHtml = (markdown) => {
     // split the markdown string into lines
     let markdownLines = markdown.split(/\r?\n/);
     let bodyHtml = "";
+    // page header
+    bodyHtml += makeHeader();
     // parse each line individually
     for (let line of markdownLines) {
         let parseResult = parseLine(line);
         if (parseResult.kind === "heading") {
-            bodyHtml += `<h1>${parseResult.title}</h1>`;
+            bodyHtml += makeHeading(parseResult.level, parseResult.title);
         }
         else {
-            bodyHtml += `<p>${parseResult.content}</p>`;
+            bodyHtml += makeParagraph(parseResult.content);
         }
     }
     return `
