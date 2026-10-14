@@ -97,7 +97,7 @@ const isKeyDown = (code: string): boolean => {
 ////////////////////////////////////////////////////////////
 
 const animate = (time: number) => {
-  // ctx.reset();
+  ctx.reset();
   
   update();
   drawPlayer(player, ctx);
@@ -106,29 +106,3 @@ const animate = (time: number) => {
 }
 
 requestAnimationFrame(animate);
-
-////////////////////////////////////////////////////////////
-
-// const animate = (time: number) => {
-//   ctx.reset();
-
-//   const centerX = canvas.width / 2;
-//   const centerY = canvas.height / 2;
-//   const r = 100;
-//   const angle = time / 1000;
-
-//   // draw some stuff
-//   ctx.fillStyle = "blue";
-//   ctx.beginPath();
-//   ctx.arc(
-//     centerX + r * Math.cos(angle),
-//     centerY + r * Math.sin(angle),
-//     40, 0, 2*Math.PI
-//   );
-//   ctx.closePath();
-//   ctx.fill();
-
-//   requestAnimationFrame(animate);
-// }
-
-// requestAnimationFrame(animate);
