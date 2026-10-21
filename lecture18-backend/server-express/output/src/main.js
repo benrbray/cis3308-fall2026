@@ -1,13 +1,26 @@
-import http from "node:http";
-const server = http.createServer();
-const PORT = 3000;
-server.on('request', function (req, res) {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello, CIS 3308!\n');
+import express from "express";
+const PORT = 3210;
+const app = express();
+// serve static files from the "public" directory
+app.use(express.static("public"));
+//// ENDPOINTS /////////////////////////////////////////////
+app.get("/", (req, res) => {
+    res.send("Hello, CIS 3308 from Express!");
 });
-server.on('listening', function () {
-    console.log(`Server running! (http://localhost:${PORT})`);
+app.get("/greet", (req, res) => {
+    const queryParams = req.query;
+    console.log(queryParams);
+    const name = req.query.name;
+    res.send(`Hello, ${name}!`);
 });
-server.listen(3000);
+app.get("/example", (req, res) => {
+    res.send("Example GET Endpoint");
+});
+app.post("/example", (req, res) => {
+    res.send("Example POST endpoint");
+});
+////////////////////////////////////////////////////////////
+app.listen(PORT, () => {
+    console.log(`Express server listening on port ${PORT}...`);
+});
 //# sourceMappingURL=main.js.map
