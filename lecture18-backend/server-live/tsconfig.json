@@ -1,0 +1,32 @@
+{
+  "include": ["./src/**/*"],
+
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "esnext",
+
+    "lib": ["esnext"],
+    "types": ["node"],
+
+    // outputs
+    "rootDir": ".",
+    "outDir" : "output",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    
+    // enforce strict typechecking
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "strict": true,
+    
+    // recommended options
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  }
+}
