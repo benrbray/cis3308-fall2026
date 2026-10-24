@@ -1,5 +1,6 @@
 import express from "express";
 import { readBookData } from "./data.js";
+import json from "body-parser";
 const PORT = 3210;
 const app = express();
 app.use(express.static("public"));
@@ -21,6 +22,10 @@ app.post("/example", (req, res) => {
 ////////////////////////////////////////////////////////////
 // read the json books data
 const bookInfo = readBookData();
+app.post("/books/create", (req, res) => {
+    console.log(req.body);
+    // req.form
+});
 app.get("/books", (req, res) => {
     let respHtml = "";
     for (let book of bookInfo) {
@@ -43,6 +48,18 @@ app.get("/books", (req, res) => {
       </head>
       <body>
         <h1>Books</h1>
+        <form action="/books/create" method="POST">
+          <label for="title">Title</label>
+          <input name="title" type="text">
+          
+          <label for="author">Author</label>
+          <input name="author" type="text">
+          
+          <label for="url">URL</label>
+          <input name="url" type="text">
+
+          <button type="submit">Create Book!</button>
+        </form>
         <div class="book-list">
         ${respHtml}
         </div>
