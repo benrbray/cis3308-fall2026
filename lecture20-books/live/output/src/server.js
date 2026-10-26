@@ -1,7 +1,5 @@
 import express from "express";
-import { bookList, createBook } from "./data.js";
-import ReactDOM from "react-dom/server";
-import { App } from "./app.js";
+import { bookList } from "./data.js";
 const PORT = 3210;
 const app = express();
 // middleware
@@ -11,9 +9,6 @@ app.use(express.json()); // support json request body
 ////////////////////////////////////////////////////////////
 app.get("/", (req, res) => {
     res.send("Hello, CIS 3308 from Express!");
-});
-app.get("/react", (req, res) => {
-    res.send(ReactDOM.renderToString(App()));
 });
 app.get("/greet", (req, res) => {
     const queryParams = req.query;
@@ -31,21 +26,6 @@ app.post("/example", (req, res) => {
 // CREATE
 app.post("/books/create", (req, res) => {
     console.log(req.body);
-    createBook({
-        title: req.body.title,
-        author: req.body.author,
-        url: req.body.url
-    });
-    // 303 SEE OTHER
-    // used after form submissions to refresh the page
-    res.redirect(303, "/books");
-});
-// DELETE
-app.post("/books/:bookId/delete", (req, res) => {
-    console.log(req.body);
-    console.log(req.params);
-    // 303 SEE OTHER
-    // used after form submissions to refresh the page
     res.redirect(303, "/books");
 });
 // READ
@@ -77,7 +57,7 @@ app.get("/books", (req, res) => {
         <div class="column">
           <h1>Books</h1>
 
-          <form class="book-form" action="/books/create" method="DELETE">
+          <form class="book-form" action="/books/create" method="POST">
             <label for="title">Title</label>
             <input name="title" type="text">
             
@@ -98,8 +78,6 @@ app.get("/books", (req, res) => {
       </body>
     </html>
   `);
-});
-app.get("/books/:bookid", (req, res) => {
 });
 ////////////////////////////////////////////////////////////
 // start the actual server

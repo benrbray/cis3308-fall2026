@@ -1,4 +1,4 @@
-# Static Site Generator
+# Books Project
 
 ## System Setup
 

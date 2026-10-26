@@ -34,43 +34,6 @@ export const loadBookData = (): BookEntity[] => {
   }))
 }
 
-export const createBook = (
-  book: Book,
-) => {
-  // add book to the _front_ of the array, so we can see it more easily
-  bookList.unshift(({
-    id: generateId(),
-    book
-  }));
-
-  console.log("Created Book!")
-}
-
-export const findBookById = (
-  id: number,
-): BookEntity|undefined => {
-  return bookList.find(book => book.id == id);
-}
-
-export const updateBook = (
-  id: number,
-): void => {
-  const book = findBookById(id);
-
-}
-
-export const deleteBook = (
-  id: number
-): boolean => {
-  let idx = bookList.findIndex(book => book.id == id);
-  if(idx > -1) {
-    bookList.splice(idx, 1);
-    return true;
-  } else {
-    return false;
-  }
-}
-
 ////////////////////////////////////////////////////////////
 
 // read the json books data
