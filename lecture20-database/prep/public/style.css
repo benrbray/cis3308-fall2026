@@ -1,0 +1,35 @@
+.column {
+  max-width: 40em;
+  margin: 0 auto;
+}
+
+.book-form {
+  border: 1px solid black;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.book-form input {
+  font-size: 1.4em;
+}
+
+.book-list {
+
+}
+
+.book-list .book {
+  background-color: #eee;
+  padding: 0.5rem;
+  margin: 1rem;
+}
+
+.book-list .book .title {
+  font-weight: bold;
+}
+
+.book-list .book .author {
+
+}
