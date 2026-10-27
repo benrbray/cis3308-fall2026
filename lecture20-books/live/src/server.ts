@@ -1,5 +1,9 @@
 import express from "express";
-import { type Book, type BookEntity, bookList } from "./data.js";
+import { type Book, type BookEntity, bookList, createBook, deleteBook, getBookById, saveBookData } from "./data.js";
+import ReactDOM from "react-dom/server";
+import { App } from "./App.js";
+import { Layout } from "./components/Layout.js";
+import { BookPage } from "./components/BookPage.js";
 
 const PORT = 3210
 
@@ -16,21 +20,10 @@ app.get("/", (req, res) => {
   res.send("Hello, CIS 3308 from Express!")
 });
 
-app.get("/greet", (req, res) => {
-  const queryParams = req.query;
-  console.log(queryParams);
-
-  const name = req.query.name;
-  res.send(`<h1>Hello, ${name}</h1>`);
-})
-
-app.get("/example", (req, res) => {
-  res.send("Example GET endpoint!");
-})
-
-app.post("/example", (req, res) => {
-  res.send("Example POST endpoint!");
-})
+app.get("/react", (req, res) => {
+  let html = ReactDOM.renderToString(App());
+  res.send(html);
+});
 
 ////////////////////////////////////////////////////////////
 
@@ -38,65 +31,75 @@ app.post("/example", (req, res) => {
 app.post("/books/create", (req, res) => {
   console.log(req.body);
 
+  // create a new book
+  createBook({
+    title: req.body.title,
+    author: req.body.author,
+    url: req.body.url,
+  })
+
+  saveBookData(bookList);
+
   // 303 SEE OTHER
   // used when submitting forms, will
   // make a GET request to the provided URL
   res.redirect(303, "/books");
 })
 
+// DELETE
+app.post("/books/:bookId/delete", (req, res) => {
+  console.log("DELETE BOOK ID:", req.params.bookId);
+  deleteBook(parseInt(req.params.bookId));
+  saveBookData(bookList);
+  res.redirect(303, "/books");
+});
+
 // READ
 app.get("/books", (req, res) => {
   let respHtml: string = "";
 
-  for(let bookEntity of bookList) {
-    respHtml += `<div class="book">
-      <div class="title">
-        <a href="/books/${bookEntity.id}">${bookEntity.book.title}</a>
-      </div>
-      <div class="author">
-        ${bookEntity.book.author}
-      </div>
-      <form action="/books/${bookEntity.id}/delete" method="POST">
-        <button>Delete</button>
-      </form>
-    </div>`
+  // for(let bookEntity of bookList) {
+  //   respHtml += `<div class="book">
+  //     <div class="title">
+  //       <a href="/books/${bookEntity.id}">${bookEntity.book.title}</a>
+  //     </div>
+  //     <div class="author">
+  //       ${bookEntity.book.author}
+  //     </div>
+  //     <form action="/books/${bookEntity.id}/delete" method="POST">
+  //       <button>Delete</button>
+  //     </form>
+  //   </div>`
+  // }
+
+  res.send(ReactDOM.renderToString(
+    BookPage({ bookList })
+  ));
+})
+
+app.get("/books/:bookId", (req, res) => {
+  let bookId: number = parseInt(req.params.bookId);
+
+  // find the book
+  let book = getBookById(bookId);
+
+  if(book !== undefined) {
+    res.send(`<html>
+      <head>
+      </head>
+        <title>${book.book.title}</title>
+      <body>
+        <h1>${book.book.title}<h1>
+
+        ${book.book.author}$
+      </body>
+    </html>`)
+  } else {
+    res.status(404);
+    res.send("Not found");
   }
 
-  res.send(`
-    <!doctype>
-
-    <html>
-      <head>
-        <title>Books</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="/style.css">
-      </head>
-      <body>
-        <div class="column">
-          <h1>Books</h1>
-
-          <form class="book-form" action="/books/create" method="POST">
-            <label for="title">Title</label>
-            <input name="title" type="text">
-            
-            <label for="author">Author</label>
-            <input name="author" type="text">
-            
-            <label for="url">URL</label>
-            <input name="url" type="text">
-
-            <button type="submit">Create Book!</button>
-          </form>
-          
-          <div class="book-list">
-          ${respHtml}
-          </div>
-        
-          </div>
-      </body>
-    </html>
-  `);
-})
+});
 
 ////////////////////////////////////////////////////////////
 

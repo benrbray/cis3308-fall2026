@@ -1,0 +1,1 @@
+{"version":3,"file":"BookPage.d.ts","sourceRoot":"","sources":["../../../src/components/BookPage.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,YAAY,CAAA;AAI5C,MAAM,WAAW,aAAa;IAC5B,QAAQ,EAAE,UAAU,EAAE,CAAA;CACvB;AAED,eAAO,MAAM,QAAQ,UACZ,aAAa,gCAOrB,CAAA"}

@@ -18,6 +18,25 @@ const generateId = () => {
 
 ////////////////////////////////////////////////////////////
 
+export const createBook = (book: Book) => {
+  bookList.unshift({
+    id: generateId(),
+    book: book,
+  });
+}
+
+export const deleteBook = (id: number) => {
+  let idx = bookList.findIndex(book => book.id == id);
+  if(idx > -1) {
+    bookList.splice(idx, 1);
+  }
+}
+
+export const getBookById = (id: number) => {
+  let book = bookList.find(entity => entity.id == id);
+  return book;
+}
+
 export const loadBookData = (): BookEntity[] => {
   // read the json file from the data folder
   let fileContents = fs.readFileSync("./data/books.json", { encoding: "utf8" });
@@ -32,6 +51,16 @@ export const loadBookData = (): BookEntity[] => {
     id: generateId(),
     book: book
   }))
+}
+
+export const saveBookData = (books: BookEntity[]) => {
+  let json = JSON.stringify(books.map(entity => entity.book));
+
+  fs.writeFileSync(
+    "./data/books.json",
+    json,
+    { encoding: "utf-8" }
+  );
 }
 
 ////////////////////////////////////////////////////////////

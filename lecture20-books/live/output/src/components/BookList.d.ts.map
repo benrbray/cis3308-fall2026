@@ -1,0 +1,1 @@
+{"version":3,"file":"BookList.d.ts","sourceRoot":"","sources":["../../../src/components/BookList.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,YAAY,CAAA;AAE5C,MAAM,WAAW,aAAa;IAC5B,QAAQ,EAAE,UAAU,EAAE,CAAA;CACvB;AAED,eAAO,MAAM,QAAQ,UACX,aAAa,gCAYtB,CAAA"}
