@@ -1,9 +1,7 @@
 import './App.css'
 
 export const Square = () => {
-  return (<button className="square">
-    X
-  </button>);
+  return <button className="square">X</button>;
 }
 
 export const App = () => {
